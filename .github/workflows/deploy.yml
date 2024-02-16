@@ -1,8 +1,18 @@
 on:
   workflow_dispatch
+    inputs:
+      targetEnv:
+        description: 'The environment you want to deploy to'
+        required: true
+        default: 'dev'
+        type: choice
+        options:
+          - dev
+          - test
+          - prod
 
 env:
-  targetEnv: dev
+  targetEnv: ${{ inputs.targetEnv }}
 
 name: Azure Bicep
 jobs:
@@ -13,6 +23,9 @@ jobs:
       pages: write
       id-token: write
     steps:
+    - name: Verify environment
+      run: echo "Deploying to ${{ env.targetEnv }} based on ${{ inputs.targetEnv }} input."
+
     # Checkout code
     - uses: actions/checkout@main
 
