@@ -1,5 +1,5 @@
 on:
-  workflow_dispatch
+  workflow_dispatch:
     inputs:
       targetEnv:
         description: 'The environment you want to deploy to'
